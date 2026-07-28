@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>终身服务保障卡</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Georgia', 'Noto Serif SC', '宋体', sans-serif;
+            padding: 20px;
+            flex-direction: column;
+        }
+        .card {
+            width: 100%; max-width: 420px;
+            background: #ffffff;
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 30px 25px 25px 25px;
+            color: #222;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 背景咖啡豆装饰 */
+        .coffee-bean-bg {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.08;
+            font-size: 60px;
+        }
+        .bean1 { top: 10px; left: 10px; transform: rotate(30deg); }
+        .bean2 { top: 60px; right: 20px; transform: rotate(-45deg); }
+        .bean3 { bottom: 40px; left: 30px; transform: rotate(15deg); }
+        .bean4 { bottom: 80px; right: 10px; transform: rotate(-20deg); }
+        .bean5 { top: 40%; left: 5px; transform: rotate(50deg); }
+        .bean6 { top: 25%; right: 5px; transform: rotate(-60deg); }
+        
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #222;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #999;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 14px;
+            font-size: 16px;
+            border-bottom: 1px dotted #ccc;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .info-label {
+            color: #444;
+            white-space: nowrap;
+            margin-right: 10px;
+            letter-spacing: 2px;
+        }
+        .info-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px dashed #999;
+            color: #222;
+            font-weight: bold;
+            text-align: right;
+            padding: 2px 4px;
+            font-size: 16px;
+            width: 150px;
+            outline: none;
+            font-family: inherit;
+        }
+        .info-input::placeholder { color: #aaa; }
+        .info-input:disabled { background: #f0f0f0; color: #999; }
+        
+        .guarantee {
+            margin-top: 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 13px;
+            line-height: 1.7;
+            text-align: center;
+            border: 1px solid #ddd;
+            position: relative;
+        }
+        .guarantee strong { color: #444; font-size: 15px; }
+        
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+            position: relative;
+        }
+        .stamp {
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            border: 2px solid #666;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+        .disclaimer {
+            text-align: center;
+            color: #999;
+            font-size: 11px;
+            margin-top: 15px;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .save-btn {
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .save-btn:active { background: #111; }
+        .save-btn:disabled { background: #bbb; cursor: not-allowed; }
+        .hint { color: #888; font-size: 12px; margin-top: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div id="cardArea">
+    <div class="card" id="cardCapture">
+        <!-- 咖啡豆背景装饰 -->
+        <div class="coffee-bean-bg bean1">☕</div>
+        <div class="coffee-bean-bg bean2">☕</div>
+        <div class="coffee-bean-bg bean3">☕</div>
+        <div class="coffee-bean-bg bean4">☕</div>
+        <div class="coffee-bean-bg bean5">☕</div>
+        <div class="coffee-bean-bg bean6">☕</div>
+
+        <div class="title">终身服务保障卡</div>
+        <div class="subtitle">黑门咖啡 · 一次学习 终身守护</div>
+
+        <div class="info-row">
+            <span class="info-label">学员姓名</span>
+            <input class="info-input" id="name" placeholder="点击填写">
+        </div>
+        <div class="info-row">
+            <span class="info-label">课程名称</span>
+            <input class="info-input" id="course" placeholder="例如：精品咖啡师全能班">
+        </div>
+        <div class="info-row">
+            <span class="info-label">上课日期</span>
+            <input class="info-input" id="startDate" placeholder="2026-08-01">
+        </div>
+        <div class="info-row">
+            <span class="info-label">结课时间</span>
+            <input class="info-input" id="endDate" placeholder="2026-08-07">
+        </div>
+
+        <div class="guarantee">
+            <strong>终身服务保障</strong><br>
+            持本卡学员可终身享受<br>
+            同课程免费复训 · 技术咨询 · 新品内测资格<br>
+            保障随本学院存续期间有效
+        </div>
+
+        <div class="footer">
+            <div>
+                <div style="font-weight:bold; color:#444;">黑门咖啡 联合 馥郁咖啡培训学院（惠州分院）</div>
+                <div>电话：14777900134</div>
+            </div>
+            <div class="stamp">终身保障</div>
+        </div>
+        <div class="disclaimer">最终解释权归黑门咖啡联合馥郁咖啡培训学院（惠州分院）所有</div>
+    </div>
+
+    <button class="save-btn" id="saveBtn" onclick="saveCard()">📷 生成并保存图片</button>
+    <div class="hint" id="hintText">请仔细填写，如需修改请联系管理员获取新文件</div>
+</div>
+
+<script>
+    function saveCard() {
+        const name = document.getElementById('name').value.trim();
+        if (!name) { alert('请填写学员姓名'); return; }
+
+        const btn = document.getElementById('saveBtn');
+        btn.disabled = true;
+        btn.textContent = '已保存';
+        document.getElementById('hintText').textContent = '图片已保存到相册，此表单已锁定';
+        const inputs = document.querySelectorAll('.info-input');
+        inputs.forEach(input => input.disabled = true);
+
+        const card = document.getElementById('cardCapture');
+        html2canvas(card, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = '终身服务保障卡.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    }
+</script>
+</body>
+</html>
