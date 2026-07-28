@@ -27,141 +27,81 @@
             position: relative;
             overflow: hidden;
         }
-        
-        /* 背景咖啡豆装饰 */
-        .coffee-bean-bg {
-            position: absolute;
-            pointer-events: none;
-            opacity: 0.08;
-            font-size: 60px;
-        }
-        .bean1 { top: 10px; left: 10px; transform: rotate(30deg); }
-        .bean2 { top: 60px; right: 20px; transform: rotate(-45deg); }
-        .bean3 { bottom: 40px; left: 30px; transform: rotate(15deg); }
-        .bean4 { bottom: 80px; right: 10px; transform: rotate(-20deg); }
-        .bean5 { top: 40%; left: 5px; transform: rotate(50deg); }
-        .bean6 { top: 25%; right: 5px; transform: rotate(-60deg); }
-        
-        .title {
+        .card-header {
             text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 4px;
-            color: #222;
-            margin-bottom: 8px;
-            position: relative;
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 14px;
-            color: #666;
-            letter-spacing: 2px;
             margin-bottom: 25px;
-            border-bottom: 1px dashed #999;
-            padding-bottom: 15px;
-            position: relative;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
         }
+        .card-header .coffee-icon { font-size: 48px; margin-bottom: 5px; }
+        .title { font-size: 24px; font-weight: bold; letter-spacing: 4px; color: #222; margin-bottom: 8px; }
+        .subtitle { font-size: 14px; color: #666; letter-spacing: 2px; }
         .info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 14px;
-            font-size: 16px;
-            border-bottom: 1px dotted #ccc;
-            padding-bottom: 8px;
-            position: relative;
+            display: flex; justify-content: space-between; align-items: baseline;
+            margin-bottom: 14px; font-size: 16px;
+            border-bottom: 1px dotted #ccc; padding-bottom: 8px;
         }
-        .info-label {
-            color: #444;
-            white-space: nowrap;
-            margin-right: 10px;
-            letter-spacing: 2px;
-        }
+        .info-label { color: #444; white-space: nowrap; margin-right: 10px; letter-spacing: 2px; }
         .info-input {
-            background: transparent;
-            border: none;
-            border-bottom: 1px dashed #999;
-            color: #222;
-            font-weight: bold;
-            text-align: right;
-            padding: 2px 4px;
-            font-size: 16px;
-            width: 150px;
-            outline: none;
-            font-family: inherit;
+            background: transparent; border: none; border-bottom: 1px dashed #999;
+            color: #222; font-weight: bold; text-align: right; padding: 2px 4px;
+            font-size: 16px; width: 150px; outline: none; font-family: inherit;
         }
         .info-input::placeholder { color: #aaa; }
         .info-input:disabled { background: #f0f0f0; color: #999; }
-        
         .guarantee {
-            margin-top: 20px;
-            background: #f9f9f9;
-            border-radius: 12px;
-            padding: 15px;
-            font-size: 13px;
-            line-height: 1.7;
-            text-align: center;
-            border: 1px solid #ddd;
-            position: relative;
+            margin-top: 20px; background: #f9f9f9; border-radius: 12px;
+            padding: 15px; font-size: 13px; line-height: 1.7;
+            text-align: center; border: 1px solid #ddd;
         }
         .guarantee strong { color: #444; font-size: 15px; }
-        
         .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 20px;
-            color: #666;
-            font-size: 12px;
-            position: relative;
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-top: 20px; color: #666; font-size: 12px;
         }
         .stamp {
-            font-size: 16px;
-            font-weight: bold;
-            color: #666;
-            border: 2px solid #666;
-            padding: 5px 10px;
-            border-radius: 8px;
+            font-size: 16px; font-weight: bold; color: #666;
+            border: 2px solid #666; padding: 5px 10px; border-radius: 8px;
         }
         .disclaimer {
-            text-align: center;
-            color: #999;
-            font-size: 11px;
-            margin-top: 15px;
-            letter-spacing: 1px;
-            position: relative;
+            text-align: center; color: #999; font-size: 11px;
+            margin-top: 15px; letter-spacing: 1px;
         }
         .save-btn {
-            margin-top: 20px;
-            background: #333;
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            border-radius: 30px;
-            letter-spacing: 2px;
-            cursor: pointer;
-            font-weight: bold;
+            margin-top: 20px; background: #333; color: #fff;
+            border: none; padding: 12px 30px; font-size: 18px;
+            border-radius: 30px; letter-spacing: 2px; cursor: pointer; font-weight: bold;
         }
         .save-btn:active { background: #111; }
         .save-btn:disabled { background: #bbb; cursor: not-allowed; }
         .hint { color: #888; font-size: 12px; margin-top: 10px; text-align: center; }
+        .expired-msg {
+            display: none;
+            color: #666;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 30px;
+            line-height: 1.8;
+        }
     </style>
 </head>
 <body>
 
+<!-- 已失效提示 -->
+<div id="expiredMsg" class="expired-msg">
+    ⚠️ 您已领取过终身服务保障卡<br>
+    如需重新领取，请联系管理员<br>
+    📞 14777900134
+</div>
+
+<!-- 卡片区域 -->
 <div id="cardArea">
     <div class="card" id="cardCapture">
-        <!-- 咖啡豆背景装饰 -->
-        <div class="coffee-bean-bg bean1">☕</div>
-        <div class="coffee-bean-bg bean2">☕</div>
-        <div class="coffee-bean-bg bean3">☕</div>
-        <div class="coffee-bean-bg bean4">☕</div>
-        <div class="coffee-bean-bg bean5">☕</div>
-        <div class="coffee-bean-bg bean6">☕</div>
-
-        <div class="title">终身服务保障卡</div>
-        <div class="subtitle">黑门咖啡 · 一次学习 终身守护</div>
+        <div class="card-header">
+            <div class="coffee-icon">☕</div>
+            <div class="title">终身服务保障卡</div>
+            <div class="subtitle">黑门咖啡 · 一次学习 终身守护</div>
+        </div>
 
         <div class="info-row">
             <span class="info-label">学员姓名</span>
@@ -198,20 +138,30 @@
     </div>
 
     <button class="save-btn" id="saveBtn" onclick="saveCard()">📷 生成并保存图片</button>
-    <div class="hint" id="hintText">请仔细填写，如需修改请联系管理员获取新文件</div>
+    <div class="hint" id="hintText">每人仅限领取一次，请仔细填写</div>
 </div>
 
 <script>
+    // 检查是否已领取
+    if (localStorage.getItem('card_claimed') === 'true') {
+        document.getElementById('cardArea').style.display = 'none';
+        document.getElementById('expiredMsg').style.display = 'block';
+    }
+
     function saveCard() {
         const name = document.getElementById('name').value.trim();
         if (!name) { alert('请填写学员姓名'); return; }
 
+        // 锁定页面
         const btn = document.getElementById('saveBtn');
         btn.disabled = true;
         btn.textContent = '已保存';
-        document.getElementById('hintText').textContent = '图片已保存到相册，此表单已锁定';
+        document.getElementById('hintText').textContent = '图片已保存到相册，此设备已锁定';
         const inputs = document.querySelectorAll('.info-input');
         inputs.forEach(input => input.disabled = true);
+
+        // 标记已领取（浏览器永久记录）
+        localStorage.setItem('card_claimed', 'true');
 
         const card = document.getElementById('cardCapture');
         html2canvas(card, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
