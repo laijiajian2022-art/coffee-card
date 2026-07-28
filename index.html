@@ -87,14 +87,12 @@
 </head>
 <body>
 
-<!-- 已失效提示 -->
 <div id="expiredMsg" class="expired-msg">
     ⚠️ 您已领取过终身服务保障卡<br>
     如需重新领取，请联系管理员<br>
     📞 14777900134
 </div>
 
-<!-- 卡片区域 -->
 <div id="cardArea">
     <div class="card" id="cardCapture">
         <div class="card-header">
@@ -142,7 +140,6 @@
 </div>
 
 <script>
-    // 检查是否已领取
     if (localStorage.getItem('card_claimed') === 'true') {
         document.getElementById('cardArea').style.display = 'none';
         document.getElementById('expiredMsg').style.display = 'block';
@@ -152,19 +149,23 @@
         const name = document.getElementById('name').value.trim();
         if (!name) { alert('请填写学员姓名'); return; }
 
-        // 锁定页面
-        const btn = document.getElementById('saveBtn');
-        btn.disabled = true;
-        btn.textContent = '已保存';
-        document.getElementById('hintText').textContent = '图片已保存到相册，此设备已锁定';
+        // 截图前：临时启用所有输入框（保证截图文字颜色正常）
         const inputs = document.querySelectorAll('.info-input');
-        inputs.forEach(input => input.disabled = true);
-
-        // 标记已领取（浏览器永久记录）
-        localStorage.setItem('card_claimed', 'true');
+        inputs.forEach(input => input.disabled = false);
 
         const card = document.getElementById('cardCapture');
         html2canvas(card, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
+            // 截图完成后：重新锁定输入框
+            const btn = document.getElementById('saveBtn');
+            btn.disabled = true;
+            btn.textContent = '已保存';
+            document.getElementById('hintText').textContent = '图片已保存到相册，此设备已锁定';
+            inputs.forEach(input => input.disabled = true);
+
+            // 标记已领取
+            localStorage.setItem('card_claimed', 'true');
+
+            // 下载图片
             const link = document.createElement('a');
             link.download = '终身服务保障卡.png';
             link.href = canvas.toDataURL('image/png');
